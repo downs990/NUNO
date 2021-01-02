@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
