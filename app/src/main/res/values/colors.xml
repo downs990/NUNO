@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#B82B21</color>
+    <color name="colorAccent">#03DAC5</color>
+
+
+    <!-- Card colors -->
+    <color name="nuno_red">#E91E63</color>
+    <color name="nuno_green">#4CAF50</color>
+    <color name="nuno_blue">#2196F3</color>
+    <color name="nuno_yellow">#FFEB3B</color>
+
+
+</resources>
