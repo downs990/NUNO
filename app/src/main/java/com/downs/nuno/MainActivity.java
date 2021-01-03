@@ -3,10 +3,12 @@ package com.downs.nuno;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 
 import com.downs.nuno.models.Card;
 
@@ -14,18 +16,23 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int NUMBER_OF_CARDS_IN_HAND = 4;
+    private int NUMBER_OF_CARDS_IN_HAND = 7;
 
 
     private Integer[] cardColors = {
             R.color.nuno_red, R.color.nuno_green, R.color.nuno_blue, R.color.nuno_yellow
     };
 
+//    private String[] cardSymbols = {
+//            "1", "2", "3", "4", "5", "6", "7", "8", "9"
+//    };
     private String[] cardSymbols = {
             "#", "$", "%", "^", "&", "*", "+", "!", "?"
     };
 
-    ListView listView;
+
+    RecyclerView computerRecyclerView;
+    RecyclerView playerRecyclerView;
 
 
     @Override
@@ -37,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        listView = findViewById(R.id.game_grid);
+        computerRecyclerView = findViewById(R.id.computer_game_grid);
+        playerRecyclerView = findViewById(R.id.game_grid);
+
+
+        generateComputersDeck(NUMBER_OF_CARDS_IN_HAND);
         generateRandomDeck(NUMBER_OF_CARDS_IN_HAND);
 
 
@@ -60,6 +71,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
+    private void generateComputersDeck(int sizeOfDeck){
+
+        ArrayList<Card> cards = new ArrayList<>();
+        for(int i = 0; i < sizeOfDeck; i++){
+            Card newCard = new Card(R.color.unknown_card_color, "??");
+            cards.add(newCard);
+        }
+
+
+
+        GameGridAdapter adapter = new GameGridAdapter(this, cards);
+
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        computerRecyclerView.setLayoutManager(horizontalLayoutManagaer);
+        computerRecyclerView.setAdapter(adapter);
+
+    }
+
+
+
     private void generateRandomDeck(int sizeOfDeck){
 
         ArrayList<Card> cards = new ArrayList<>();
@@ -79,8 +114,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         GameGridAdapter adapter = new GameGridAdapter(this, cards);
-        listView.setAdapter(adapter);
+
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        playerRecyclerView.setLayoutManager(horizontalLayoutManagaer);
+        playerRecyclerView.setAdapter(adapter);
 
     }
 

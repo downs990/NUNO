@@ -21,15 +21,63 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <ListView
-        android:id="@+id/game_grid"
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="270dp"
+        >
+
+        <TextView
+            android:id="@+id/top_symbol"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/nunoCardSectionsStyle"
+            android:padding="5dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <Button
+            android:id="@+id/center_symbol"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            style="@style/nunoCardSectionsStyle"
+            android:layout_below="@+id/top_symbol"
+            android:textSize="37dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/bottom_symbol"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/nunoCardSectionsStyle"
+            android:textSize="20dp"
+            android:textAlignment="textEnd"
+            android:layout_below="@+id/center_symbol"
+            android:padding="5dp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/computer_game_grid"
         android:layout_below="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp" />
+        android:orientation="horizontal"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/game_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:orientation="horizontal"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/random_hand_fab"

@@ -11,5 +11,7 @@
     <color name="nuno_blue">#2196F3</color>
     <color name="nuno_yellow">#FFEB3B</color>
 
+    <color name="unknown_card_color">#474343</color>
+
 
 </resources>
