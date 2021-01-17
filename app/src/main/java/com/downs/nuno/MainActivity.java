@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         generateComputersDeck(NUMBER_OF_CARDS_IN_HAND);
         generateRandomDeck(NUMBER_OF_CARDS_IN_HAND);
 
+        // Test code above.
+        // ------------------------------------------------------
+
+
+
         //initialize new game
         //Create 3 computer players
         Computer playerOne = new Computer();
@@ -60,12 +65,14 @@ public class MainActivity extends AppCompatActivity {
         Computer playerThree = new Computer();
         Player humanPlayer = new Player();
 
+        // Initialize all game cards
+        Deck completeGameDeck = initializeCards();
+
         //Generate Cards for each player
-        handOutPlayerCards(null,playerOne, playerTwo, playerThree, humanPlayer);
+        handOutPlayerCards(completeGameDeck,playerOne, playerTwo, playerThree, humanPlayer);
 
         //Remove a first card from draw deck, add to pile to initiate game
         //Players can add cards to the pileDeck, or draw from the drawDeck
-
 
 
 
@@ -77,25 +84,23 @@ public class MainActivity extends AppCompatActivity {
 
                 generateRandomDeck(NUMBER_OF_CARDS_IN_HAND);
 
-
-
             }
         });
 
 
     }
 
-    private Deck intializeCards(){
+    private Deck initializeCards(){
         //Create a deck of cards based on the symbols
-        //TODO generate cards cardSymbols[0-9] for each color to create appropriate deck
-        //TODO generate cards cardSymbols[1-9] for each color
+        //TODO generate cards cardSymbols[0] - cardSymbols[9] for each color to create appropriate deck
+        //TODO generate cards cardSymbols[1] - cardSymbols[9] for each color
 
         return null;
     }
 
-    private void handOutPlayerCards(Deck cards,Computer playerOne, Computer playerTwo, Computer playerThree, Player humanPlayer) {
+    private void handOutPlayerCards(Deck completeGameDeck,Computer playerOne, Computer playerTwo, Computer playerThree, Player humanPlayer) {
 
-        //TODO add NUMBER_OF_CARDS_IN_HAND to each player
+        //TODO add NUMBER_OF_CARDS_IN_HAND to each player from completeGameDeck
 
     }
 
