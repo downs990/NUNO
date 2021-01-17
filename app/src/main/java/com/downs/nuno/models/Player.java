@@ -2,11 +2,26 @@ package com.downs.nuno.models;
 
 public class Player {
 
-    public void getPlayerCard(){
+    private String playerName = "Player1";
+    private Deck playerHand;
+
+    public Player(){
 
     }
 
-    public void setPlayCard(){
+    public Player(Deck cards) {
+
+        playerHand = new Deck(cards);
 
     }
+
+    public void getPlayerCard() {
+
+    }
+
+    public void setPlayCard() {
+
+    }
+
+
 }

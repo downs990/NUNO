@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.downs.nuno.models.Card;
+import com.downs.nuno.models.Computer;
+import com.downs.nuno.models.Deck;
+import com.downs.nuno.models.Player;
 
 import java.util.ArrayList;
 
@@ -47,11 +50,21 @@ public class MainActivity extends AppCompatActivity {
         computerRecyclerView = findViewById(R.id.computer_game_grid);
         playerRecyclerView = findViewById(R.id.game_grid);
 
-
         generateComputersDeck(NUMBER_OF_CARDS_IN_HAND);
         generateRandomDeck(NUMBER_OF_CARDS_IN_HAND);
 
+        //initialize new game
+        //Create 3 computer players
+        Computer playerOne = new Computer();
+        Computer playerTwo = new Computer();
+        Computer playerThree = new Computer();
+        Player humanPlayer = new Player();
 
+        //Generate Cards for each player
+        handOutPlayerCards(null,playerOne, playerTwo, playerThree, humanPlayer);
+
+        //Remove a first card from draw deck, add to pile to initiate game
+        //Players can add cards to the pileDeck, or draw from the drawDeck
 
 
 
@@ -72,6 +85,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private Deck intializeCards(){
+        //Create a deck of cards based on the symbols
+        //TODO generate cards cardSymbols[0-9] for each color to create appropriate deck
+        //TODO generate cards cardSymbols[1-9] for each color
+
+        return null;
+    }
+
+    private void handOutPlayerCards(Deck cards,Computer playerOne, Computer playerTwo, Computer playerThree, Player humanPlayer) {
+
+        //TODO add NUMBER_OF_CARDS_IN_HAND to each player
+
+    }
 
 
     private void generateComputersDeck(int sizeOfDeck){
@@ -81,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
             Card newCard = new Card(R.color.unknown_card_color, "??");
             cards.add(newCard);
         }
-
-
 
         GameGridAdapter adapter = new GameGridAdapter(this, cards);
 

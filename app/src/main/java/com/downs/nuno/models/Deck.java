@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 public class Deck {
 
-    private ArrayList<Card> cards;// TODO: Use stack data structure instead?
-    private String owner;
+    private ArrayList<Card> cards; //Holds the total amount of cards in play
 
-    public Deck(ArrayList<Card> cards, String owner) {
+    public Deck(Deck newDeck){
+
+        //TODO test the deep copy constructor
+        this.cards = newDeck.cards;
+    }
+
+    public Deck(ArrayList<Card> cards) {
         this.cards = cards;
-        this.owner = owner;
     }
 
     public void shuffleCards(){}
@@ -21,7 +25,6 @@ public class Deck {
     public String toString() {
         return "Deck{" +
                 "cards=" + cards +
-                ", owner='" + owner + '\'' +
                 '}';
     }
 }
