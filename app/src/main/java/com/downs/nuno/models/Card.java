@@ -2,24 +2,26 @@ package com.downs.nuno.models;
 
 public class Card {
 
-    private int color;
+    private int colorCode;
+    private String colorName;
     private String symbol;
 
     public Card(){
 
     }
 
-    public Card(int color, String symbol){
-        this.color = color;
+    public Card(int colorCode, String symbol,String colorName){
+        this.colorCode = colorCode;
+        this.colorName = colorName;
         this.symbol = symbol;
     }
 
     public int getColor() {
-        return color;
+        return colorCode;
     }
 
     public void setColor(int color) {
-        this.color = color;
+        this.colorCode = colorCode;
     }
 
     public String getSymbol() {
@@ -33,8 +35,8 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "color=" + color +
+        return "\nCard{" +
+                "color=" + colorName +
                 ", symbol='" + symbol + '\'' +
                 '}';
     }

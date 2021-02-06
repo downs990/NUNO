@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
             R.color.nuno_red, R.color.nuno_green, R.color.nuno_blue, R.color.nuno_yellow
     };
 
+    private String[] cardColorNames = {
+            "Red", "Green", "Blue", "Yellow"
+    };
 //    private String[] cardSymbols = {
 //            "1", "2", "3", "4", "5", "6", "7", "8", "9"
 //    };
@@ -68,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize all game cards
         Deck completeGameDeck = initializeCards();
 
+        Log.d("LoadDeck",completeGameDeck.toString());
+
         //Generate Cards for each player
         handOutPlayerCards(completeGameDeck,playerOne, playerTwo, playerThree, humanPlayer);
 
@@ -92,15 +98,35 @@ public class MainActivity extends AppCompatActivity {
 
     private Deck initializeCards(){
         //Create a deck of cards based on the symbols
-        //TODO generate cards cardSymbols[0] - cardSymbols[9] for each color to create appropriate deck
-        //TODO generate cards cardSymbols[1] - cardSymbols[9] for each color
+        Deck allCards = new Deck();
 
-        return null;
+        //generate cards cardSymbols[0] - cardSymbols[9] for each color to create appropriate deck
+        for(int i = 0; i < cardSymbols.length; i++){
+
+            for(int j = 0; j < cardColors.length;j++){
+                Card newCard = new Card(cardColors[j],cardSymbols[i],cardColorNames[j]);
+                allCards.addCard(newCard);
+            }
+
+        }
+
+        //generate cards cardSymbols[1] - cardSymbols[9] for each color
+        for(int i = 1; i < cardSymbols.length;i++){
+            for(int j = 0; j < cardColors.length;j++){
+                Card newCard = new Card(cardColors[j],cardSymbols[i],cardColorNames[j]);
+                allCards.addCard(newCard);
+            }
+        }
+
+        return allCards;
     }
 
-    private void handOutPlayerCards(Deck completeGameDeck,Computer playerOne, Computer playerTwo, Computer playerThree, Player humanPlayer) {
+    private void handOutPlayerCards(Deck completeGameDeck,Computer playerOne, Computer playerTwo,
+                                    Computer playerThree, Player humanPlayer) {
 
-        //TODO add NUMBER_OF_CARDS_IN_HAND to each player from completeGameDeck
+        completeGameDeck.getSize();
+
+
 
     }
 
@@ -109,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Card> cards = new ArrayList<>();
         for(int i = 0; i < sizeOfDeck; i++){
-            Card newCard = new Card(R.color.unknown_card_color, "??");
+            Card newCard = new Card(R.color.unknown_card_color, "??","Unknown");
             cards.add(newCard);
         }
 
@@ -138,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             int symbolRange = (maxSymbolIndex - minSymbolsIndex) + 1;
             int currentSymbolIndex = (int) (Math.random() * symbolRange) + minSymbolsIndex;  // Inclusive on both ends
 
-            Card newCard = new Card(cardColors[currentColorIndex], cardSymbols[currentSymbolIndex]);
+            Card newCard = new Card(cardColors[currentColorIndex], cardSymbols[currentSymbolIndex],cardColorNames[currentColorIndex]);
             cards.add(newCard);
         }
 

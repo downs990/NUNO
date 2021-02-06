@@ -2,10 +2,10 @@ package com.downs.nuno.models;
 
 public class Player {
 
-    private String playerName = "Player1";
+    private String playerName;
     private Deck playerHand;
 
-    public Player(){
+    public Player() {
 
     }
 
@@ -15,12 +15,26 @@ public class Player {
 
     }
 
-    public void getPlayerCard() {
+    public String getPlayerName() {
+
+        return playerName;
 
     }
 
-    public void setPlayCard() {
+    public void setPlayerName(String playerName) {
 
+        this.playerName = playerName;
+
+    }
+
+    public Deck getPlayerCards() {
+
+        return playerHand;
+    }
+
+    public void setPlayCards() {
+
+        this.playerHand = playerHand;
     }
 
 
