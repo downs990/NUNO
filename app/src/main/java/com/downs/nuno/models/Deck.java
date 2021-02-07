@@ -1,11 +1,13 @@
 package com.downs.nuno.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck {
 
     private ArrayList<Card> cards; //Holds the total amount of cards in play
-
+//    int maxDeckIndex;
+//    int minDeckIndex;
     public Deck(){
         cards = new ArrayList<>();
     }
@@ -29,6 +31,7 @@ public class Deck {
         //TODO deck[3],deck[randomIndex4]; (Swap function)
         //TODO deck[4],deck[randomIndex5]; (Swap function)
         //..........
+        Collections.shuffle(cards);
     }
     public void addCard(Card card){
 

@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize all game cards
         Deck completeGameDeck = initializeCards();
-
+        completeGameDeck.shuffleCards();
         Log.d("LoadDeck",completeGameDeck.toString());
 
         //Generate Cards for each player
