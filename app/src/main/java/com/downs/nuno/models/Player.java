@@ -37,5 +37,9 @@ public class Player {
         this.playerHand = playerHand;
     }
 
+    public void addPlayerCard(Card card){
+
+        playerHand.addCard(card);
+    }
 
 }

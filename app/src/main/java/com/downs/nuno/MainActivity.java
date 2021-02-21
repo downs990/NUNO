@@ -1,6 +1,7 @@
 package com.downs.nuno;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.downs.nuno.models.Deck;
 import com.downs.nuno.models.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] cardColorNames = {
             "Red", "Green", "Blue", "Yellow"
     };
-//    private String[] cardSymbols = {
+    //    private String[] cardSymbols = {
 //            "1", "2", "3", "4", "5", "6", "7", "8", "9"
 //    };
     private String[] cardSymbols = {
@@ -50,16 +52,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
         computerRecyclerView = findViewById(R.id.computer_game_grid);
         playerRecyclerView = findViewById(R.id.game_grid);
 
         generateComputersDeck(NUMBER_OF_CARDS_IN_HAND);
-        generateRandomDeck(NUMBER_OF_CARDS_IN_HAND);
 
         // Test code above.
         // ------------------------------------------------------
-
 
 
         //initialize new game
@@ -72,48 +71,44 @@ public class MainActivity extends AppCompatActivity {
         // Initialize all game cards
         Deck completeGameDeck = initializeCards();
         completeGameDeck.shuffleCards();
-        Log.d("LoadDeck",completeGameDeck.toString());
+        Log.d("LoadDeck", completeGameDeck.toString());
 
         //Generate Cards for each player
-        handOutPlayerCards(completeGameDeck,playerOne, playerTwo, playerThree, humanPlayer);
+        handOutPlayerCards(completeGameDeck, playerOne, playerTwo, playerThree, humanPlayer);
 
         //Remove a first card from draw deck, add to pile to initiate game
         //Players can add cards to the pileDeck, or draw from the drawDeck
 
 
-
-        findViewById(R.id.random_hand_fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 //                NavHostFragment.findNavController(FirstFragment.this)
 //                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
 
-                generateRandomDeck(NUMBER_OF_CARDS_IN_HAND);
 
-            }
-        });
+
+        updateScreenView(humanPlayer.getPlayerCards().getDeck());
 
 
     }
 
-    private Deck initializeCards(){
+
+    private Deck initializeCards() {
         //Create a deck of cards based on the symbols
         Deck allCards = new Deck();
 
         //generate cards cardSymbols[0] - cardSymbols[9] for each color to create appropriate deck
-        for(int i = 0; i < cardSymbols.length; i++){
+        for (int i = 0; i < cardSymbols.length; i++) {
 
-            for(int j = 0; j < cardColors.length;j++){
-                Card newCard = new Card(cardColors[j],cardSymbols[i],cardColorNames[j]);
+            for (int j = 0; j < cardColors.length; j++) {
+                Card newCard = new Card(cardColors[j], cardSymbols[i], cardColorNames[j]);
                 allCards.addCard(newCard);
             }
 
         }
 
         //generate cards cardSymbols[1] - cardSymbols[9] for each color
-        for(int i = 1; i < cardSymbols.length;i++){
-            for(int j = 0; j < cardColors.length;j++){
-                Card newCard = new Card(cardColors[j],cardSymbols[i],cardColorNames[j]);
+        for (int i = 1; i < cardSymbols.length; i++) {
+            for (int j = 0; j < cardColors.length; j++) {
+                Card newCard = new Card(cardColors[j], cardSymbols[i], cardColorNames[j]);
                 allCards.addCard(newCard);
             }
         }
@@ -121,21 +116,24 @@ public class MainActivity extends AppCompatActivity {
         return allCards;
     }
 
-    private void handOutPlayerCards(Deck completeGameDeck,Computer playerOne, Computer playerTwo,
+    private void handOutPlayerCards(Deck completeGameDeck, Computer playerOne, Computer playerTwo,
                                     Computer playerThree, Player humanPlayer) {
 
-        completeGameDeck.getSize();
+        int playerHandoutAmount = 7;
 
+        for(int i = 0; i <= playerHandoutAmount; i++){
 
+            humanPlayer.addPlayerCard(completeGameDeck.popCard());
 
+        }
     }
 
 
-    private void generateComputersDeck(int sizeOfDeck){
+    private void generateComputersDeck(int sizeOfDeck) {
 
         ArrayList<Card> cards = new ArrayList<>();
-        for(int i = 0; i < sizeOfDeck; i++){
-            Card newCard = new Card(R.color.unknown_card_color, "??","Unknown");
+        for (int i = 0; i < sizeOfDeck; i++) {
+            Card newCard = new Card(R.color.unknown_card_color, "??", "Unknown");
             cards.add(newCard);
         }
 
@@ -149,28 +147,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void updateScreenView(ArrayList<Card> cardDeck) {
 
-    private void generateRandomDeck(int sizeOfDeck){
-
-        ArrayList<Card> cards = new ArrayList<>();
-
-        int minColorIndex = 0, maxColorIndex = cardColors.length - 1;
-        int minSymbolsIndex = 0, maxSymbolIndex = cardSymbols.length  - 1;
-
-        for(int i = 0; i < sizeOfDeck; i++){
-            int colorRange = (maxColorIndex - minColorIndex) + 1;
-            int currentColorIndex = (int) (Math.random() * colorRange) + minColorIndex;  // Inclusive on both ends
-
-            int symbolRange = (maxSymbolIndex - minSymbolsIndex) + 1;
-            int currentSymbolIndex = (int) (Math.random() * symbolRange) + minSymbolsIndex;  // Inclusive on both ends
-
-            Card newCard = new Card(cardColors[currentColorIndex], cardSymbols[currentSymbolIndex],cardColorNames[currentColorIndex]);
-            cards.add(newCard);
-        }
-
-
-
-        GameGridAdapter adapter = new GameGridAdapter(this, cards);
+        GameGridAdapter adapter = new GameGridAdapter(this, cardDeck);
 
         LinearLayoutManager horizontalLayoutManagaer
                 = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
