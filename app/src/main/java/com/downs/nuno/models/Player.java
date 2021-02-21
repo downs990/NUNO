@@ -6,7 +6,7 @@ public class Player {
     private Deck playerHand;
 
     public Player() {
-
+        playerHand = new Deck();
     }
 
     public Player(Deck cards) {
