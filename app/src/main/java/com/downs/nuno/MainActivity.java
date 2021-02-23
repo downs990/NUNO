@@ -18,6 +18,7 @@ import com.downs.nuno.models.Deck;
 import com.downs.nuno.models.Player;
 
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,18 +72,23 @@ public class MainActivity extends AppCompatActivity {
         // Initialize all game cards
         Deck completeGameDeck = initializeCards();
         completeGameDeck.shuffleCards();
-        Log.d("LoadDeck", completeGameDeck.toString());
+        Log.d("LoadDeck - before: " + completeGameDeck.getSize(), completeGameDeck.toString());
 
         //Generate Cards for each player
         handOutPlayerCards(completeGameDeck, playerOne, playerTwo, playerThree, humanPlayer);
 
+
+
+        Log.d("LoadDeck - After: " + completeGameDeck.getSize(), completeGameDeck.toString());
         //Remove a first card from draw deck, add to pile to initiate game
         //Players can add cards to the pileDeck, or draw from the drawDeck
-
+        Log.d("LoadDeck-Player1: " + completeGameDeck.getSize(), playerOne.toString());
+        Log.d("LoadDeck-Player2: " + completeGameDeck.getSize(), playerTwo.toString());
+        Log.d("LoadDeck-Player3: " + completeGameDeck.getSize(), playerThree.toString());
+        Log.d("LoadDeck-Human: " + completeGameDeck.getSize(), humanPlayer.toString());
 
 //                NavHostFragment.findNavController(FirstFragment.this)
 //                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-
 
 
         updateScreenView(humanPlayer.getPlayerCards().getDeck());
@@ -119,19 +125,21 @@ public class MainActivity extends AppCompatActivity {
     private void handOutPlayerCards(Deck completeGameDeck, Computer playerOne, Computer playerTwo,
                                     Computer playerThree, Player humanPlayer) {
 
+        Player[] players = {humanPlayer, playerOne, playerTwo, playerThree};
         int playerHandoutAmount = 7;
 
-        for(int i = 0; i <= playerHandoutAmount; i++){
-
-            humanPlayer.addPlayerCard(completeGameDeck.popCard());
-
+        //Handout cards to each player
+        for (Player player : players) {
+            for (int i = 0; i < playerHandoutAmount; i++) {
+                player.addPlayerCard(completeGameDeck.popCard());
+            }
         }
     }
 
 
     private void generateComputersDeck(int sizeOfDeck) {
 
-        ArrayList<Card> cards = new ArrayList<>();
+        Stack<Card> cards = new Stack<>();
         for (int i = 0; i < sizeOfDeck; i++) {
             Card newCard = new Card(R.color.unknown_card_color, "??", "Unknown");
             cards.add(newCard);
@@ -147,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updateScreenView(ArrayList<Card> cardDeck) {
+    private void updateScreenView(Stack<Card> cardDeck) {
 
         GameGridAdapter adapter = new GameGridAdapter(this, cardDeck);
 

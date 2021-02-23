@@ -2,14 +2,15 @@ package com.downs.nuno.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Stack;
 
 public class Deck {
 
-    private ArrayList<Card> cards; //Holds the total amount of cards in play
+    private Stack<Card> cards; //Holds the total amount of cards in play
 //    int maxDeckIndex;
 //    int minDeckIndex;
     public Deck(){
-        cards = new ArrayList<>();
+        cards = new Stack<>();
     }
 
     public Deck(Deck newDeck){
@@ -18,7 +19,7 @@ public class Deck {
         this.cards = newDeck.cards;
     }
 
-    public Deck(ArrayList<Card> cards) {
+    public Deck(Stack<Card> cards) {
         this.cards = cards;
     }
 
@@ -29,17 +30,12 @@ public class Deck {
     }
     public void addCard(Card card){
 
-        cards.add(card);
-    }
-    public void removeCard(Card card){
-
-        cards.remove(card);
-
+        cards.push(card);
     }
 
     public Card popCard(){
 
-        return cards.remove(0);
+        return cards.pop();
     }
 
     public int getSize(){
@@ -48,7 +44,12 @@ public class Deck {
 
     }
 
-    public ArrayList<Card> getDeck(){
+    public Card peekCard(){
+
+        return cards.peek();
+    }
+
+    public Stack<Card> getDeck(){
 
         return cards;
     }

@@ -15,6 +15,8 @@ public class Player {
 
     }
 
+
+
     public String getPlayerName() {
 
         return playerName;
@@ -42,4 +44,11 @@ public class Player {
         playerHand.addCard(card);
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerName='" + playerName + '\'' +
+                ", playerHand=" + playerHand.toString() +
+                '}';
+    }
 }

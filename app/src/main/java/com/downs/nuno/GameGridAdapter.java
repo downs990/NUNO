@@ -9,14 +9,15 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.downs.nuno.models.Card;
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyViewHolder> {
 
-    private ArrayList<Card> cards;
+    private Stack<Card> cards;
     private Context context;
 
-    public GameGridAdapter(Context context, ArrayList<Card> cards) {
+    public GameGridAdapter(Context context, Stack<Card> cards) {
         this.cards = cards;
         this.context = context;
     }
