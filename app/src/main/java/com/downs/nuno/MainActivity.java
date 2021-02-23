@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 //                NavHostFragment.findNavController(FirstFragment.this)
 //                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
 
-
+        //update the recyclerview on the phone interface
         updateScreenView(humanPlayer.getPlayerCards().getDeck());
 
 
