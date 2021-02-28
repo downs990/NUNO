@@ -5,7 +5,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.downs.nuno.models.Card;
 import java.util.ArrayList;
@@ -28,24 +33,27 @@ public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyView
 
 
         TextView topSymbol;
-        TextView centerSymbol;
+        Button centerSymbol;
         TextView bottomSymbol;
+        RelativeLayout cardView;
 
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView,final Context context) {
             super(itemView);
 
 
             topSymbol = itemView.findViewById(R.id.top_symbol);
             centerSymbol = itemView.findViewById(R.id.center_symbol);
             bottomSymbol = itemView.findViewById(R.id.bottom_symbol);
+            cardView = itemView.findViewById(R.id.card_view);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
 
+                    Toast.makeText(context,"Card Selected",Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -61,7 +69,7 @@ public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyView
                 .inflate(R.layout.deck_item_view, parent, false);
 
 
-        MyViewHolder myViewHolder = new MyViewHolder(view);
+        MyViewHolder myViewHolder = new MyViewHolder(view,context);
         return myViewHolder;
     }
 
