@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.downs.nuno.models.Card;
 import com.downs.nuno.models.Computer;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView computerRecyclerView;
     RecyclerView playerRecyclerView;
+    TextView discardTopSymbol;
 
 
     @Override
@@ -72,24 +75,26 @@ public class MainActivity extends AppCompatActivity {
         // Initialize all game cards
         Deck completeGameDeck = initializeCards();
         completeGameDeck.shuffleCards();
-        Log.d("LoadDeck - before: " + completeGameDeck.getSize(), completeGameDeck.toString());
+
 
         //Generate Cards for each player
         handOutPlayerCards(completeGameDeck, playerOne, playerTwo, playerThree, humanPlayer);
+        Deck discardDeck = new Deck();
+        Log.d("LoadDeck - before: " + completeGameDeck.getSize(), completeGameDeck.toString());
+        discardDeck.addCard(completeGameDeck.popCard());
+        updateDiscardDeck(discardDeck);
 
 
-
-        Log.d("LoadDeck - After: " + completeGameDeck.getSize(), completeGameDeck.toString());
         //Remove a first card from draw deck, add to pile to initiate game
         //Players can add cards to the pileDeck, or draw from the drawDeck
-        Log.d("LoadDeck-Player1: " + completeGameDeck.getSize(), playerOne.toString());
-        Log.d("LoadDeck-Player2: " + completeGameDeck.getSize(), playerTwo.toString());
-        Log.d("LoadDeck-Player3: " + completeGameDeck.getSize(), playerThree.toString());
-        Log.d("LoadDeck-Human: " + completeGameDeck.getSize(), humanPlayer.toString());
-
+//        Log.d("LoadDeck-Player1: " + completeGameDeck.getSize(), playerOne.toString());
+//        Log.d("LoadDeck-Player2: " + completeGameDeck.getSize(), playerTwo.toString());
+//        Log.d("LoadDeck-Player3: " + completeGameDeck.getSize(), playerThree.toString());
+//        Log.d("LoadDeck-Human: " + completeGameDeck.getSize(), humanPlayer.toString());
+        Log.d("Discard Deck: " + discardDeck.getSize(), discardDeck.toString());
 //                NavHostFragment.findNavController(FirstFragment.this)
 //                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-
+        Log.d("LoadDeck - After: " + completeGameDeck.getSize(), completeGameDeck.toString());
         //update the recyclerview on the phone interface
         updateScreenView(humanPlayer.getPlayerCards().getDeck());
 
@@ -163,6 +168,21 @@ public class MainActivity extends AppCompatActivity {
                 = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         playerRecyclerView.setLayoutManager(horizontalLayoutManagaer);
         playerRecyclerView.setAdapter(adapter);
+
+    }
+
+    private void updateDiscardDeck(Deck discardDeck){
+        TextView discardTop = findViewById(R.id.pile_top_symbol);
+        Button discardCenter = findViewById(R.id.pile_center_symbol);
+        TextView discardBottom = findViewById(R.id.pile_bottom_symbol);
+
+        discardTop.setText(discardDeck.peekCard().getSymbol());
+        discardCenter.setText(discardDeck.peekCard().getSymbol());
+        discardBottom.setText(discardDeck.peekCard().getSymbol());
+
+        discardTop.setBackgroundColor(getResources().getColor(discardDeck.peekCard().getColor()));
+        discardCenter.setBackgroundColor(getResources().getColor(discardDeck.peekCard().getColor()));
+        discardBottom.setBackgroundColor(getResources().getColor(discardDeck.peekCard().getColor()));
 
     }
 
