@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
         return allCards;
     }
 
+
+    // TODO: Use Ellipsis operator to have game of 2 or more players with this one method.
     private void handOutPlayerCards(Deck completeGameDeck, Computer playerOne, Computer playerTwo,
                                     Computer playerThree, Player humanPlayer) {
 
