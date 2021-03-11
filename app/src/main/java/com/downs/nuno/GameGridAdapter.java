@@ -19,10 +19,10 @@ import java.util.Stack;
 
 public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyViewHolder> {
 
-    private Stack<Card> cards;
+    private ArrayList<Card> cards;
     private Context context;
 
-    public GameGridAdapter(Context context, Stack<Card> cards) {
+    public GameGridAdapter(Context context, ArrayList<Card> cards) {
         this.cards = cards;
         this.context = context;
     }

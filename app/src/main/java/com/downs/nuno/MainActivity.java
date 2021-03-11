@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Remove a first card from draw deck, add to pile to initiate game
+        //Computer starts game, places first card
         //Players can add cards to the pileDeck, or draw from the drawDeck
 //        Log.d("LoadDeck-Player1: " + completeGameDeck.getSize(), playerOne.toString());
 //        Log.d("LoadDeck-Player2: " + completeGameDeck.getSize(), playerTwo.toString());
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
         Log.d("LoadDeck - After: " + completeGameDeck.getSize(), completeGameDeck.toString());
         //update the recyclerview on the phone interface
-        updateScreenView(humanPlayer.getPlayerCards().getDeck());
+        updateScreenView(humanPlayer.getPlayerCards());
 
 
     }
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateComputersDeck(int sizeOfDeck) {
 
-        Stack<Card> cards = new Stack<>();
+        ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < sizeOfDeck; i++) {
             Card newCard = new Card(R.color.unknown_card_color, "??", "Unknown");
             cards.add(newCard);
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updateScreenView(Stack<Card> cardDeck) {
+    private void updateScreenView(ArrayList<Card> cardDeck) {
 
         GameGridAdapter adapter = new GameGridAdapter(this, cardDeck);
 
@@ -185,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
         discardTop.setBackgroundColor(getResources().getColor(discardDeck.peekCard().getColor()));
         discardCenter.setBackgroundColor(getResources().getColor(discardDeck.peekCard().getColor()));
         discardBottom.setBackgroundColor(getResources().getColor(discardDeck.peekCard().getColor()));
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

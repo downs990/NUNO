@@ -1,21 +1,33 @@
 package com.downs.nuno.models;
 
+import java.util.ArrayList;
+
 public class Player {
 
     private String playerName;
-    private Deck playerHand;
+    protected ArrayList<Card> playerHand;
 
     public Player() {
-        playerHand = new Deck();
+        playerHand = new ArrayList<>();
     }
 
-    public Player(Deck cards) {
+    public Player(ArrayList<Card> cards) {
 
-        playerHand = new Deck(cards);
+        playerHand = cards;
 
     }
 
+    public Boolean cardToPile(Deck discardDeck,Card card){
+        if(card.getSymbol() == discardDeck.peekCard().getSymbol() ||
+                card.getColor() == discardDeck.peekCard().getColor()){
 
+            discardDeck.addCard(card);
+            this.removeCardFromHand(card);
+            return true;
+        }
+
+        return false;
+    }
 
     public String getPlayerName() {
 
@@ -29,7 +41,7 @@ public class Player {
 
     }
 
-    public Deck getPlayerCards() {
+    public ArrayList<Card> getPlayerCards() {
 
         return playerHand;
     }
@@ -41,7 +53,12 @@ public class Player {
 
     public void addPlayerCard(Card card){
 
-        playerHand.addCard(card);
+        playerHand.add(card);
+    }
+
+    public void removeCardFromHand(Card card){
+
+         playerHand.remove(card);
     }
 
     @Override
