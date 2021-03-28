@@ -2,6 +2,7 @@ package com.downs.nuno;
 
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.downs.nuno.models.Card;
+import com.downs.nuno.models.Deck;
+import com.downs.nuno.models.Player;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -21,10 +25,14 @@ public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyView
 
     private ArrayList<Card> cards;
     private Context context;
+    private Player playerObject;
+    private Deck discardDeck;
 
-    public GameGridAdapter(Context context, ArrayList<Card> cards) {
+    public GameGridAdapter(Context context, ArrayList<Card> cards, Player playerObject, Deck discardDeck) {
         this.cards = cards;
         this.context = context;
+        this.playerObject = playerObject;
+        this.discardDeck = discardDeck;
     }
 
 
@@ -53,7 +61,12 @@ public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyView
                 public void onClick(View v)
                 {
 
-                    Toast.makeText(context,"Card Selected",Toast.LENGTH_LONG).show();
+                    TextView clickedButton = v.findViewById(R.id.bottom_symbol);
+                    String cardSymbol = clickedButton.getText().toString();
+                    ColorDrawable cd = (ColorDrawable) clickedButton.getBackground();
+                    int color = cd.getColor();
+
+                    Toast.makeText(context,"Symbol: " + cardSymbol + " Color: " + color,Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -94,6 +107,10 @@ public class GameGridAdapter extends RecyclerView.Adapter<GameGridAdapter.MyView
         bottomSymbol.setText(symbol);
         bottomSymbol.setBackgroundColor(context.getResources().getColor(color));
     }
+
+
+
+
 
     @Override
     public int getItemCount() {

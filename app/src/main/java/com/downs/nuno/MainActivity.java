@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.downs.nuno.models.Card;
 import com.downs.nuno.models.Computer;
@@ -56,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        Toast.makeText(getBaseContext(),
+                "RED: " + cardColors[0]+
+                "GREEN: " + cardColors[1]+
+                "BLUE: " + cardColors[2] +
+                "YELLOW: " + cardColors[3],
+                Toast.LENGTH_LONG).show();
+
         computerRecyclerView = findViewById(R.id.computer_game_grid);
         playerRecyclerView = findViewById(R.id.game_grid);
 
-        generateComputersDeck(NUMBER_OF_CARDS_IN_HAND);
 
         // Test code above.
         // ------------------------------------------------------
@@ -68,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         //initialize new game
         //Create 3 computer players
         Computer playerOne = new Computer();
-        Computer playerTwo = new Computer();
-        Computer playerThree = new Computer();
+//        Computer playerTwo = new Computer();
+//        Computer playerThree = new Computer();
         Player humanPlayer = new Player();
 
         // Initialize all game cards
@@ -78,11 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Generate Cards for each player
-        handOutPlayerCards(completeGameDeck, playerOne, playerTwo, playerThree, humanPlayer);
+        handOutPlayerCards(completeGameDeck, playerOne, humanPlayer);
         Deck discardDeck = new Deck();
         Log.d("LoadDeck - before: " + completeGameDeck.getSize(), completeGameDeck.toString());
         discardDeck.addCard(completeGameDeck.popCard());
         updateDiscardDeck(discardDeck);
+
+        generateComputersDeck(NUMBER_OF_CARDS_IN_HAND, playerOne, discardDeck);
 
 
         //Remove a first card from draw deck, add to pile to initiate game
@@ -97,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
         Log.d("LoadDeck - After: " + completeGameDeck.getSize(), completeGameDeck.toString());
         //update the recyclerview on the phone interface
-        updateScreenView(humanPlayer.getPlayerCards());
+        updateScreenView(humanPlayer.getPlayerCards(), humanPlayer, discardDeck);
 
 
     }
@@ -129,15 +138,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // TODO: Use Ellipsis operator to have game of 2 or more players with this one method.
-    private void handOutPlayerCards(Deck completeGameDeck, Computer playerOne, Computer playerTwo,
-                                    Computer playerThree, Player humanPlayer) {
+    private void handOutPlayerCards(Deck completeGameDeck, Player... playerList) {
 
-        Player[] players = {humanPlayer, playerOne, playerTwo, playerThree};
+        //Player[] players = {humanPlayer, playerOne, playerTwo, playerThree};
         int playerHandoutAmount = 7;
 
         //Handout cards to each player
-        for (Player player : players) {
+        for (Player player : playerList) {
             for (int i = 0; i < playerHandoutAmount; i++) {
                 player.addPlayerCard(completeGameDeck.popCard());
             }
@@ -145,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void generateComputersDeck(int sizeOfDeck) {
+    private void generateComputersDeck(int sizeOfDeck, Player computerPlayer, Deck discardDeck) {
 
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < sizeOfDeck; i++) {
@@ -153,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             cards.add(newCard);
         }
 
-        GameGridAdapter adapter = new GameGridAdapter(this, cards);
+        GameGridAdapter adapter = new GameGridAdapter(this, cards, computerPlayer, discardDeck);
 
         LinearLayoutManager horizontalLayoutManagaer
                 = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -163,9 +170,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updateScreenView(ArrayList<Card> cardDeck) {
+    private void updateScreenView(ArrayList<Card> cardDeck, Player playerObject, Deck discardDeck) {
 
-        GameGridAdapter adapter = new GameGridAdapter(this, cardDeck);
+        GameGridAdapter adapter = new GameGridAdapter(this, cardDeck, playerObject, discardDeck);
 
         LinearLayoutManager horizontalLayoutManagaer
                 = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
